@@ -33,6 +33,7 @@ jobs:
         run: make test
   build:
     name: Build
+    # if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs: [lint, test]
     steps:
@@ -58,7 +59,7 @@ jobs:
 
       - name: Build
         if: github.repository_owner == 'kondo97'
-        run: make docker-push
+        run: make custom-docker-push
 
       - name: Cleanup
         run: make clean
