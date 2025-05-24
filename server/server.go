@@ -178,6 +178,7 @@ func (s *Server) responseTimeMiddleware(f func(w http.ResponseWriter, r *http.Re
 func (s *Server) handleSendNotification(w http.ResponseWriter, r *http.Request) {
 	var msg PushNotification
 	err := json.NewDecoder(r.Body).Decode(&msg)
+	
 	if err != nil {
 		rMsg := fmt.Sprintf("Failed to read message body: %v", err)
 		s.logger.Error(rMsg)
@@ -190,6 +191,10 @@ func (s *Server) handleSendNotification(w http.ResponseWriter, r *http.Request) 
 		}
 		return
 	}
+
+	// output msg for debugging purposes
+	msgJSON, _ := json.Marshal(msg)
+  s.logger.Debug("Decoded PushNotification message", mlog.String("msg", string(msgJSON)))
 
 	if msg.ServerID == "" {
 		rMsg := "Failed because of missing server Id"
