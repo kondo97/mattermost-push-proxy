@@ -130,6 +130,9 @@ func (me *AppleNotificationServer) SendNotification(msg *PushNotification) PushR
 	notification.Payload = data
 	notification.Topic = me.ApplePushSettings.ApplePushTopic
 	notification.Priority = apns.PriorityHigh
+	if msg.SubType == "calls" {
+		notification.PushType = apns.PushTypeVOIP
+	}
 
 	var pushType = msg.Type
 	if msg.IsIDLoaded {
