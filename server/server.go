@@ -178,7 +178,6 @@ func (s *Server) responseTimeMiddleware(f func(w http.ResponseWriter, r *http.Re
 func (s *Server) handleSendNotification(w http.ResponseWriter, r *http.Request) {
 	var msg PushNotification
 	err := json.NewDecoder(r.Body).Decode(&msg)
-	
 	if err != nil {
 		rMsg := fmt.Sprintf("Failed to read message body: %v", err)
 		s.logger.Error(rMsg)
