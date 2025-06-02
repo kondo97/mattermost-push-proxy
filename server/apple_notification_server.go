@@ -142,9 +142,9 @@ func (me *AppleNotificationServer) SendNotification(msg *PushNotification) PushR
 
 	// outpute the notification to the logger
 	me.logger.Info("Apple notification payload",
-  	mlog.String("DeviceToken", notification.DeviceToken),
+		mlog.String("DeviceToken", notification.DeviceToken),
 		mlog.String("PushType", notification.PushType),
-  )
+	)
 
 	var pushType = msg.Type
 	if msg.IsIDLoaded {
