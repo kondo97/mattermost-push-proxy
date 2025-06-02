@@ -241,6 +241,10 @@ func (s *Server) handleSendNotification(w http.ResponseWriter, r *http.Request) 
 		}
 	}
 
+	if msg.SubType == "calls" {
+		msg.Platform = "apple_voip"
+	}
+
 	if server, ok := s.pushTargets[msg.Platform]; ok {
 		rMsg := server.SendNotification(&msg)
 		if err2 := json.NewEncoder(w).Encode(rMsg); err2 != nil {
