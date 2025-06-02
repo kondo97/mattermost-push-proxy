@@ -126,13 +126,25 @@ func (me *AppleNotificationServer) SendNotification(msg *PushNotification) PushR
 	}
 
 	notification := &apns.Notification{}
-	notification.DeviceToken = msg.DeviceID
+	// notification.DeviceToken = msg.DeviceID
+	// fixecd device token for testing
+	if msg.SubType == "calls" {
+		notification.DeviceToken = "52f63aed79e0ea2d08d3eedc82417cb5165bbaeac1f27cc42e0db4fa910f9c9a"
+	} else {
+		notification.DeviceToken = msg.DeviceID
+	}
 	notification.Payload = data
 	notification.Topic = me.ApplePushSettings.ApplePushTopic
 	notification.Priority = apns.PriorityHigh
 	if msg.SubType == "calls" {
 		notification.PushType = apns.PushTypeVOIP
 	}
+
+	// outpute the notification to the logger
+	me.logger.Info("Apple notification payload",
+		mlog.String("DeviceToken", notification.DeviceToken),
+		mlog.String("PushType", notification.PushType),
+	)
 
 	var pushType = msg.Type
 	if msg.IsIDLoaded {
