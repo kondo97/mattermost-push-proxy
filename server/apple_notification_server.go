@@ -11,7 +11,6 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/goccy/go-json"
 	"github.com/kyokomi/emoji"
 	apns "github.com/sideshow/apns2"
 	"github.com/sideshow/apns2/certificate"
