@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"time"
 
+	"github.com/goccy/go-json"
 	"github.com/kyokomi/emoji"
 	apns "github.com/sideshow/apns2"
 	"github.com/sideshow/apns2/certificate"
@@ -139,6 +140,12 @@ func (me *AppleNotificationServer) SendNotification(msg *PushNotification) PushR
 	if msg.SubType == "calls" {
 		notification.PushType = apns.PushTypeVOIP
 	}
+
+	// outpute the notification to the logger
+	me.logger.Info("Apple notification payload",
+  	mlog.String("DeviceToken", notification.DeviceToken),
+		mlog.String("PushType", notification.PushType),
+  )
 
 	var pushType = msg.Type
 	if msg.IsIDLoaded {
