@@ -129,7 +129,7 @@ func (me *AppleNotificationServer) SendNotification(msg *PushNotification) PushR
 	// notification.DeviceToken = msg.DeviceID
 	// fixecd device token for testing
 	if msg.SubType == "calls" {
-    notification.DeviceToken = "52f63aed79e0ea2d08d3eedc82417cb5165bbaeac1f27cc42e0db4fa910f9c9a"
+		notification.DeviceToken = "52f63aed79e0ea2d08d3eedc82417cb5165bbaeac1f27cc42e0db4fa910f9c9a"
 	} else {
 		notification.DeviceToken = msg.DeviceID
 	}
