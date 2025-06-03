@@ -191,6 +191,9 @@ func (s *Server) handleSendNotification(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	msgJSON, _ := json.Marshal(msg)
+	s.logger.Debug("Decoded PushNotification message", mlog.String("msg", string(msgJSON)))
+
 	if msg.ServerID == "" {
 		rMsg := "Failed because of missing server Id"
 		s.logger.Error(rMsg)
