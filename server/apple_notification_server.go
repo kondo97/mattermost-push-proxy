@@ -9,7 +9,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
 
 	"github.com/kyokomi/emoji"
@@ -131,9 +130,7 @@ func (me *AppleNotificationServer) SendNotification(msg *PushNotification) PushR
 	notification.Payload = data
 	notification.Topic = me.ApplePushSettings.ApplePushTopic
 	notification.Priority = apns.PriorityHigh
-	index := strings.Index(msg.Platform, "-v")
-	platform := msg.Platform[:index]
-	if msg.SubType == "calls" && platform == "apple_voip" {
+	if msg.SubType == "calls" && me.ApplePushSettings.Type == "apple_voip" {
 		notification.PushType = apns.PushTypeVOIP
 	}
 
