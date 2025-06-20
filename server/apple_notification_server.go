@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"time"
+	"strings"
 
 	"github.com/kyokomi/emoji"
 	apns "github.com/sideshow/apns2"
@@ -130,7 +131,9 @@ func (me *AppleNotificationServer) SendNotification(msg *PushNotification) PushR
 	notification.Payload = data
 	notification.Topic = me.ApplePushSettings.ApplePushTopic
 	notification.Priority = apns.PriorityHigh
-	if msg.SubType == "calls" {
+	index := strings.Index(msg.Platform, "-v")
+	platform := msg.Platform[:index]
+	if msg.SubType == "calls" && platform == "apple_voip" {
 		notification.PushType = apns.PushTypeVOIP
 	}
 
