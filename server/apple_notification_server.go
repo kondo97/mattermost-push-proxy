@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"time"
 	"strings"
+	"time"
 
 	"github.com/kyokomi/emoji"
 	apns "github.com/sideshow/apns2"
