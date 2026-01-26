@@ -18,6 +18,9 @@ const (
 	PushSoundNone = "none"
 )
 
+// Time-To-Live for incoming call
+const TTLForCallsSeconds = 60
+
 type PushNotificationAck struct {
 	ID       string `json:"id"`
 	Platform string `json:"platform"`

@@ -170,6 +170,11 @@ func (me *AndroidNotificationServer) SendNotification(msg *PushNotification) Pus
 		},
 	}
 
+	if msg.SubType == "calls" {
+		d := TTLForCallsSeconds * time.Second
+		fcmMsg.Android.TTL = &d
+	}
+
 	me.logger.Info(
 		"Sending android push notification",
 		mlog.String("device", me.AndroidPushSettings.Type),
