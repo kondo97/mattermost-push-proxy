@@ -26,6 +26,16 @@
             "AppleAuthKeyFile": "",
             "AppleAuthKeyID": "",
             "AppleTeamID": ""
+        },
+        {
+            "Type":"apple_voip",
+            "ApplePushUseDevelopment":false,
+            "ApplePushCertPrivate":"",
+            "ApplePushCertPassword":"",
+            "ApplePushTopic":"com.mattermost.react.native.voip",
+            "AppleAuthKeyFile": "",
+            "AppleAuthKeyID": "",
+            "AppleTeamID": ""
         }
     ],
     "AndroidPushSettings": [

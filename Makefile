@@ -262,6 +262,15 @@ docker-push: ## to push the docker image
 	-t $(DOCKER_REGISTRY)/${DOCKER_REGISTRY_REPO}:${APP_VERSION_NO_V} $(LATEST_DOCKER_TAG) --push || ${FAIL}
 	@$(OK) Pushing to registry $(DOCKER_REGISTRY)/${DOCKER_REGISTRY_REPO}:${APP_VERSION_NO_V}
 
+.PHONY: custom-docker-push
+custom-docker-push: ## to push the docker image
+	@$(INFO) Pushing to registry...
+	$(AT)$(DOCKER) buildx build \
+	--no-cache --pull --platform linux/amd64,linux/arm64 \
+	-f ${DOCKER_FILE} . \
+	-t $(DOCKER_REGISTRY)/kondo97/mattermost-push-proxy:${APP_VERSION_NO_V} $(LATEST_DOCKER_TAG) --push || ${FAIL}
+	@$(OK) Pushing to registry $(DOCKER_REGISTRY)/kondo97/mattermost-push-proxy:${APP_VERSION_NO_V}
+
 .PHONY: docker-sign
 docker-sign: ## to sign the docker image
 	@$(INFO) Signing the docker image...
