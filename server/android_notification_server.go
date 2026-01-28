@@ -181,6 +181,18 @@ func (me *AndroidNotificationServer) SendNotification(msg *PushNotification) Pus
 		mlog.String("type", msg.Type),
 		mlog.String("ack_id", msg.AckID),
 	)
+
+	// FOR DEBUG
+	if msg.SubType == "calls" || msg.SubType == "calls_ended" {
+		me.logger.Debug(
+			"Calls & Calls ended push notification android",
+			mlog.Time("now", time.Now()),
+			mlog.Int("ttl_input_int64_second", int64(fcmMsg.Android.TTL.Seconds())),
+			mlog.Int("ttl_input_int64", int64(*fcmMsg.Android.TTL)),
+			mlog.Any("full_notification", fcmMsg),
+		)
+	}
+
 	err := me.SendNotificationWithRetry(fcmMsg)
 
 	if err != nil {

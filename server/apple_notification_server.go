@@ -241,6 +241,20 @@ func (me *AppleNotificationServer) SendNotification(msg *PushNotification) PushR
 			mlog.String("ack_id", msg.AckID),
 		)
 
+		// FOR DEBUG
+		if msg.SubType == "calls" || msg.SubType == "calls_ended" {
+			duration := time.Until(notification.Expiration)
+			seconds := duration.Seconds()
+
+			me.logger.Debug(
+				"Calls & Calls ended push notification apple",
+				mlog.Time("now", time.Now()),
+				mlog.Time("ttl_input", notification.Expiration),
+				mlog.Float("ttl_input_seconds", seconds),
+				mlog.Any("full_notification", notification),
+			)
+		}
+
 		res, err := me.SendNotificationWithRetry(notification)
 		if err != nil {
 			me.logger.Error(
