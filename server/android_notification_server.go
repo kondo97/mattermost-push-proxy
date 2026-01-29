@@ -171,7 +171,8 @@ func (me *AndroidNotificationServer) SendNotification(msg *PushNotification) Pus
 	}
 
 	if msg.SubType == "calls" || msg.SubType == "calls_ended" {
-		d := TTLForCallsSeconds * time.Second
+		// d := TTLForCallsSeconds * time.Second
+		d := 0 * time.Second
 		fcmMsg.Android.TTL = &d
 	}
 
