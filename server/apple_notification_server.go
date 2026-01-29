@@ -130,8 +130,9 @@ func (me *AppleNotificationServer) SendNotification(msg *PushNotification) PushR
 	notification.Payload = data
 	notification.Topic = me.ApplePushSettings.ApplePushTopic
 	notification.Priority = apns.PriorityHigh
-	if msg.SubType == "calls" && me.ApplePushSettings.Type == "apple_voip" {
+	if (msg.SubType == "calls" || msg.SubType == "calls_ended") && me.ApplePushSettings.Type == "apple_voip" {
 		notification.PushType = apns.PushTypeVOIP
+		notification.Expiration = time.Now().Add(TTLForCallsSeconds * time.Second)
 	}
 
 	var pushType = msg.Type
