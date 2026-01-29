@@ -174,6 +174,7 @@ func (me *AndroidNotificationServer) SendNotification(msg *PushNotification) Pus
 		// d := TTLForCallsSeconds * time.Second
 		d := 0 * time.Second
 		fcmMsg.Android.TTL = &d
+		fcmMsg.Android.CollapseKey = msg.DeviceID
 	}
 
 	me.logger.Info(
